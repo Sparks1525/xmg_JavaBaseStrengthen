@@ -1,0 +1,112 @@
+黑盒测试：
+黑盒测试也称功能测试，它是通过测试来检测每个功能是否都能正常使用。
+在测试中，把程序看作一个不能打开的黑盒子，在完全不考虑程序内部结构和内部特性的情况下，在程序接口进行测试，
+它只检查程序功能是否按照需求规格说明书的规定正常使用，程序是否能适当地接收输入数据而产生正确的输出信息。
+黑盒测试着眼于程序外部结构，不考虑内部逻辑结构，主要针对软件界面和软件功能进行测试。
+
+黑盒测试是以用户的角度，从输入数据与输出数据的对应关系出发进行测试的。
+很明显，如果外部特性本身设计有问题或规格说明的规定有误，用黑盒测试方法是发现不了的。
+
+作用：
+黑盒测试法注重于测试软件的功能需求，主要试图发现下列几类错误。
+功能不正确或遗漏；
+界面错误；
+输入和输出错误；
+数据库访问错误；
+性能错误；
+初始化和终止错误等。
+
+
+白盒测试：
+又称结构测试、透明盒测试、逻辑驱动测试或基于代码的测试。
+它是按照程序内部的结构测试程序，通过测试来检测产品内部动作是否按照设计规格说明书的规定正常进行，
+检验程序中的每条通路是否都能按预定要求正确工作。 这一方法是把测试对象看作一个打开的盒子，测试人员依据程序内部逻辑结构相关信息，
+设计或选择测试用例，对程序所有逻辑路径进行测试，通过在不同点检查程序的状态，确定实际的状态是否与预期的状态一致。
+
+
+白盒测试是一种测试用例设计方法，盒子指的是被测试的软件，白盒指的是盒子是可视的,你清楚盒子内部的东西以及里面是如何运作的。
+"白盒"法全面了解程序内部逻辑结构、对所有逻辑路径进行测试。测试者必须检查程序的内部结构，从检查程序的逻辑着手，得出测试数据。
+----------------------------------------------------------------------------------
+
+使用junit3.x:
+
+  junit3.x是Java5以前的测试方式:
+  
+步骤:
+     1.把junit3.x的测试jar,添加到该项目中来;(添加如右图)
+     2.定义一个测试类,并让该测试类继承与TestCase类.
+       测试类的名字: XxxTest
+     3.在EmployeeDAOTest中编写测试方法:如
+       public void testXxx() throws Exception {
+	   }
+       注意:方法是public修饰的,无返回的,必须以test作为方法的前缀,XXX表示测试的功能名字.
+       温馨提示:输入test,按atl+/,再敲回车,就有测试方法,再修改方法的名字.
+      4.选择某一个测试方法,鼠标右键选择 [run as junit],或则选中测试类,表示测试该类中所有的测试方法.
+      在Android中的单元测试就是采用的是junit3.x;
+      若要在测试方法之前做准备操作:
+      EmployeeDAOTest覆写TestCase中:protected void setUp() throws Exception方法
+      若要在测试方法之后做回收操作:
+      EmployeeDAOTest覆写TestCase中:protected void tearDown() throws Exception方法
+      执行顺序: setUp->测试方法->tearDown-->setUp--测试方法2->tearDown
+
+----------------------------------------------------------------------------------
+使用junit4.x:
+   junit4.x基于Java5开始的版本,支持注解.
+   
+步骤:
+     1.把junit4.x的测试jar,添加到该项目中来;
+     2.定义一个测试类J.(不再继承TestCase类)
+       测试类的名字: XxxTest
+     3.在EmployeeDAOTest中编写测试方法:如
+       @Test
+       public void testXxx() throws Exception {
+	   }
+       注意:方法是public修饰的,无返回的,该方法上必须贴有@Test标签,XXX表示测试的功能名字.
+      4.选择某一个测试方法,鼠标右键选择 [run as junit],或则选中测试类,表示测试该类中所有的测试方法.
+      以后单元测试使用最多的方式:
+
+      若要在测试方法之前做准备操作:
+      EmployeeDAOTest随意定义一个方法并使用@Before标注:
+      @Before
+      public void xx() throws Exception方法
+
+      若要在测试方法之后做回收操作:
+      EmployeeDAOTest随意定义一个方法并使用@After标注:
+      @After
+      public void xx() throws Exception方法
+
+      特点:每次执行测试方法之前都会执行Before方法,每次执行测试方法之后都会执行After方法;
+      有没有方式之初始化一次,和最终销毁一次呢?
+      @BeforeClass标签:在所有的Before方法之前执行,只在最初执行一次. 只能修饰静态方法
+      @AfterClass标签:在所有的After方法之后执行,只在最后执行一次.   只能修饰静态方法
+
+      执行顺序: BeforeClass->(Before->Test-After多个测试方法)-->AfterClass
+
+
+
+
+
+
+①:Assert.assertEquals(message, expected, actual):比较的值
+   三个参数:
+     message:  断言失败的提示信息,断言成功不会显示.
+     expected: 期望值
+     actual:   真实值
+   若真实值和期望值想等,则断言成功.--->绿条
+②:Assert.assertSame(message, expected, actual):比较地址,是同一个对象
+   Assert.assertNotSame(message, expected, actual):断言不是同一个对象
+③:Assert.assertTrue(message, condition):断言condition应该为TRUE.
+④:Assert.assertFalse(message, condition):断言condition应该为FALSE.
+⑤:Assert.assertNull(message, object):断言对象object为null.
+⑥:Assert.assertNotNull(message, object):断言对象object不为null.
+⑦:@Test(expected=ArithmeticException.class)
+   期望该方法报错,报错ArithmeticException.
+⑧:@Test(timeout=400)
+   期望该方法在400毫秒之内执行完成.
+
+
+
+
+
+
+
