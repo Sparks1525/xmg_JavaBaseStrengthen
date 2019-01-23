@@ -62,6 +62,9 @@ enum Singleton3{
 
 class InstEnum{}
 
+
+
+
 //------------------------------------
 class Singleton4{
     private Singleton4(){}
