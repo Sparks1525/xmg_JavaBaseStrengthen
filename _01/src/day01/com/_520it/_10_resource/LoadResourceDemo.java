@@ -10,9 +10,9 @@ public class LoadResourceDemo {
 
         String fileName = "D:\\Sparks\\Sparks_xiaomageNote\\day02\\resources\\db.properties";
 
-        Properties p = new Properties();
         InputStream inputStream = new FileInputStream(fileName);
 
+        Properties p = new Properties();
 
         p.load(inputStream);
         System.out.println(p);
@@ -49,7 +49,6 @@ public class LoadResourceDemo {
         System.out.println(p.getProperty("username"));
         System.out.println(p.getProperty("password"));
     }
-
 
 
 

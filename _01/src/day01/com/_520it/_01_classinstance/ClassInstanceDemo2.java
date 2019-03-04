@@ -29,6 +29,6 @@ public class ClassInstanceDemo2 {
         Class slclz2 = stringList2.getClass();
         Class ilclz2 = integerList2.getClass();
 
-        System.out.println(slclz2 == ilclz2); // true
+        System.out.println(slclz2 == ilclz2); // true add
     }
 }
